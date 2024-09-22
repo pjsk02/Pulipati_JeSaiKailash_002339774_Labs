@@ -4,6 +4,9 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.VitalSigns;
 import model.VitalSignsHistory;
 
 /**
@@ -19,6 +22,8 @@ public class ViewJPanel extends javax.swing.JPanel {
     public ViewJPanel(VitalSignsHistory vitalSignsHistory) {
         initComponents();
         this.vitalSignsHistory = vitalSignsHistory;
+        
+        populateTable();
     }
 
     /**
@@ -35,60 +40,75 @@ public class ViewJPanel extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         lblTemp = new javax.swing.JLabel();
         lblBP = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTemp = new javax.swing.JTextField();
         lblPulse = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtBP = new javax.swing.JTextField();
+        txtPulse = new javax.swing.JTextField();
+        lblDate = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVitals = new javax.swing.JTable();
 
         viewLable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         viewLable.setText("View Vital Signs");
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lblTemp.setText("Temperature");
 
         lblBP.setText("Blood Pressure");
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTemp.setEditable(false);
+        txtTemp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTempActionPerformed(evt);
             }
         });
 
         lblPulse.setText("Pulse");
 
-        jTextField2.setEditable(false);
+        txtBP.setEditable(false);
 
-        jTextField3.setEditable(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtPulse.setEditable(false);
+        txtPulse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtPulseActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Date");
+        lblDate.setText("Date");
 
-        jTextField4.setEditable(false);
+        txtDate.setEditable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVitals.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Date", "Temperature", "Blood Pressure", "Pulse"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblVitals);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -105,17 +125,17 @@ public class ViewJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPulse, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblBP)
                                 .addComponent(lblTemp)))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
+                            .addComponent(txtBP)
+                            .addComponent(txtPulse)
+                            .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(txtTemp)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addComponent(viewLable))
@@ -141,48 +161,114 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTemp)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBP)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPulse)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPulse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDate)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, lblBP, lblPulse, lblTemp});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblBP, lblDate, lblPulse, lblTemp});
 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTempActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtTempActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtPulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPulseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtPulseActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = tblVitals.getSelectedRow();
+        
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select a row first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblVitals.getModel();
+        VitalSigns selectedVitals = (VitalSigns) model.getValueAt(selectedIndex,0);
+        
+        if (selectedVitals != null){
+            txtTemp.setText(Double.toString(selectedVitals.getTemperature()));
+            txtBP.setText(Double.toString(selectedVitals.getBloodPressure()));
+            txtDate.setText(selectedVitals.getDate());
+            txtPulse.setText(Integer.toString(selectedVitals.getPulse()));
+
+        }
+        
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = tblVitals.getSelectedRow();
+        
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Select a row first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblVitals.getModel();
+        VitalSigns selectedVitals = (VitalSigns) model.getValueAt(selectedIndex,0);
+        
+        // deletion
+        if (selectedVitals != null)
+        {
+            vitalSignsHistory.removeVitalSigns(selectedVitals);
+            JOptionPane.showMessageDialog(this, "Vital signs deleted.", "Success!!", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnView;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblBP;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblPulse;
     private javax.swing.JLabel lblTemp;
+    private javax.swing.JTable tblVitals;
+    private javax.swing.JTextField txtBP;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtPulse;
+    private javax.swing.JTextField txtTemp;
     private javax.swing.JLabel viewLable;
     // End of variables declaration//GEN-END:variables
+    
+    private void populateTable(){
+        DefaultTableModel model = (DefaultTableModel) tblVitals.getModel();
+        model.setRowCount(0);
+        
+        for ( VitalSigns vs : vitalSignsHistory.getHistory()){
+            
+            Object[] row = new Object[4];
+            row[0] = vs;
+            row[1] = vs.getTemperature();
+            row[2] = vs.getBloodPressure();
+            row[3] = vs.getPulse();
+                    
+            model.addRow(row);
+    }
+        
+        
+    }
+    
+    
+    
+    
 }

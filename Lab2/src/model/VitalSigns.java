@@ -45,4 +45,9 @@ public class VitalSigns {
     Double BloodPressure;
     Double temperature;
     int pulse;
+    
+    @Override
+    public String toString(){
+        return getDate();
+    }
 }
