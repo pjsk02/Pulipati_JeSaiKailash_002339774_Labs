@@ -45,6 +45,4 @@ public class VitalSigns {
     Double BloodPressure;
     Double temperature;
     int pulse;
-    
-    
 }

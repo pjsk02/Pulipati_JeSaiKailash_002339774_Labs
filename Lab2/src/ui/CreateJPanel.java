@@ -4,6 +4,8 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+import model.VitalSigns;
 import model.VitalSignsHistory;
 
 /**
@@ -53,6 +55,11 @@ public class CreateJPanel extends javax.swing.JPanel {
         lblDate.setText("Date");
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,6 +127,30 @@ public class CreateJPanel extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+       Double temperature = Double.parseDouble(txtTemp.getText());
+       Double BP = Double.parseDouble(txtBP.getText());
+       int pulse = Integer.parseInt(txtPulse.getText());
+       String date = txtDate.getText();
+       
+       VitalSigns newVs = vitalSignsHistory.addNewVitals();
+       
+       newVs.setTemperature(temperature);
+       newVs.setBloodPressure(BP);
+       newVs.setPulse(pulse);
+       newVs.setDate(date);
+       
+       //Showing the user conformaion dialogue
+       JOptionPane.showMessageDialog(this,"New Vital sign created", "Success", JOptionPane.INFORMATION_MESSAGE);
+//               showMessageDialogue(this,"New Vital sign created", "Success", JOptionPane.INFORMATION_MESSAGE);
+       
+       txtTemp.setText("");
+       txtBP.setText("");
+       txtDate.setText("");
+       txtPulse.setText("");
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
