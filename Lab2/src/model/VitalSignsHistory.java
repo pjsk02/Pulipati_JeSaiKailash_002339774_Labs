@@ -4,10 +4,31 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author KAILASH
  */
 public class VitalSignsHistory {
     ArrayList<VitalSigns> history;
+    
+    public VitalSignsHistory(){
+        history = new ArrayList<VitalSigns>();
+    }
+    
+    public VitalSigns addNewVitals(){
+        VitalSigns newVs = new VitalSigns();
+        history.add(newVs);
+        return newVs;
+    }
+    
+    public void removeVitalSigns(VitalSigns vs){
+        history.remove(vs);
+    }
+    
+    public ArrayList<VitalSigns> getHistory(){
+        return history;
+    }
+    
 }
