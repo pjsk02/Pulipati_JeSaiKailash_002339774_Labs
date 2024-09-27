@@ -4,10 +4,34 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author KAILASH
  */
 public class AccountDirectory {
-    private 
+    private ArrayList<Account> accounts;
+    
+    public AccountDirectory(){
+        this.accounts = new ArrayList<Account>();
+    }
+    
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+    
+    public void setAccounts(ArrayList<Account> accounts){
+        this.accounts = accounts;
+    }
+    
+    public Account addAccount(){
+        Account a = new Account();
+        accounts.add(a);
+        return a;
+    }
+    
+    public void deleteAccount(Account account){
+        accounts.remove(account);
+    }
 }
