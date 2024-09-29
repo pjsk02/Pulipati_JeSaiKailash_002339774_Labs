@@ -4,7 +4,11 @@
  */
 package ui.AccountManager;
 
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import model.Account;
 import model.AccountDirectory;
 
 /**
@@ -13,8 +17,8 @@ import model.AccountDirectory;
  */
 public class ManageAccountsJPanel extends javax.swing.JPanel {
 
-    JPanel userProcessContainer;
-    AccountDirectory accountDirectory;
+    private JPanel userProcessContainer;
+    private AccountDirectory accountDirectory;
     /**
      * Creates new form ManageAccountJPanel
      */
@@ -23,6 +27,8 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         
         userProcessContainer = container;
         accountDirectory = directory;
+        
+        populateTable();
     }
 
     /**
@@ -71,11 +77,26 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         btnSearch.setText("Search");
 
         btnViewDetails.setText("View Details");
+        btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailsActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete Account");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnBack.setBackground(new java.awt.Color(153, 204, 255));
         btnBack.setText("<<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,6 +148,32 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+     int selectedRow =    
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblAccounts.getSelectedRow();
+        
+        if(selectedRow >= 0){
+            Account selectedAccount = (Account) tblAccounts.getValueAt(selectedRow,0);
+            
+        }
+        
+        else{
+            JOptionPane.showMessageDialog(null,"Please select an account from the list to view", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnViewDetailsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -138,4 +185,20 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblAccounts;
     private javax.swing.JTextField txtSearchBox;
     // End of variables declaration//GEN-END:variables
+
+    public void populateTable()
+    {
+        DefaultTableModel model = (defaultTableModel) tblAccounts.getModel();
+        model.setRowCount(0);
+        
+        for(Account a : accountDirectory.getAccounts()){
+            Object [] row = new Object[4];
+            row[0] = a;
+            row[1] = a.getRoutingNumber();
+            row[2] = a.getAccountNumber();
+            row[3] = String.valueOf(a.getBalance());
+            
+            model.addRow(row);
+        }
+    }
 }

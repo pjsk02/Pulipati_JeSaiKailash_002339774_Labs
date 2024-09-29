@@ -5,7 +5,10 @@
 package ui.AccountManager;
 
 import java.awt.CardLayout;
+import model.*;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Account;
 import model.AccountDirectory;
 
 /**
@@ -14,16 +17,16 @@ import model.AccountDirectory;
  */
 public class CreateAccountJPanel extends javax.swing.JPanel {
 
-    JPanel userProcessContainer;
-    AccountDirectory accountDirectory;
+    private JPanel userProcessContainer;
+    private AccountDirectory accountDirectory;
     /**
      * Creates new form CreateAccountJPanel
      */
-    public CreateAccountJPanel(JPanel container, AccountDirectory directory) {
+    public CreateAccountJPanel(JPanel userProcessContainer, AccountDirectory accountDirectory) {
         initComponents();
         
-        userProcessContainer = container;
-        accountDirectory = directory;
+        this.userProcessContainer = userProcessContainer;
+        this.accountDirectory = accountDirectory;
     }
 
     /**
@@ -154,6 +157,39 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
         // TODO add your handling code here:
+        
+        int balance;
+        
+        String routingNumber = txtRoutingNumber.getText();
+        String accountNumber = txtAccountNumber.getText();
+        String bankName = txtBankName.getText();
+        
+        if (routingNumber.isBlank() || bankName.isBlank() || accountNumber.isBlank())
+        {
+            JOptionPane.showMessageDialog(this,"All Fields are manadatory", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            balance = Integer.parseInt(txtBalance.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Please check the balance Input","Warning",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Account a = accountDirectory.addAccount();
+        
+        a.setAccountNumber(accountNumber);
+        a.setBalance(balance);
+        a.setBankName(bankName);
+        a.setRoutingNumber(routingNumber);
+        
+        JOptionPane.showMessageDialog(this,"Account successfully created","Information", JOptionPane.INFORMATION_MESSAGE);
+        
+        txtAccountNumber.setText("");
+        txtBalance.setText("");
+        txtBankName.setText("");
+        txtRoutingNumber.setText("");
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
     private void txtBankNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBankNameActionPerformed
