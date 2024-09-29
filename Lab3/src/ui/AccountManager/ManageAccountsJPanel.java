@@ -157,7 +157,23 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-     int selectedRow =    
+     int selectedRow = tblAccounts.getSelectedRow();
+     
+     if(selectedRow>=0)
+     {
+         int dialogButton = JOptionPane.YES_NO_OPTION;
+         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected account?","Warning",JOptionPane.WARNING_MESSAGE);
+         if (dialogResult == JOptionPane.YES_OPTION){
+             Account selectedAccount = (Account) tblAccounts.getValueAt(selectedRow,0);
+             accountDirectory.deleteAccount(selectedAccount);
+             populateTable();
+         }
+     }
+     
+     else{
+         JOptionPane.showMessageDialog(null,"Please select an account from the list","Warning", JOptionPane.WARNING_MESSAGE);
+     }
+     
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
@@ -188,7 +204,7 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
 
     public void populateTable()
     {
-        DefaultTableModel model = (defaultTableModel) tblAccounts.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblAccounts.getModel();
         model.setRowCount(0);
         
         for(Account a : accountDirectory.getAccounts()){
