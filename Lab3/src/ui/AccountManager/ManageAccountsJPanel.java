@@ -162,14 +162,13 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
      if(selectedRow>=0)
      {
          int dialogButton = JOptionPane.YES_NO_OPTION;
-         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected account?","Warning",JOptionPane.WARNING_MESSAGE);
+         int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected account?","Warning",dialogButton);
          if (dialogResult == JOptionPane.YES_OPTION){
              Account selectedAccount = (Account) tblAccounts.getValueAt(selectedRow,0);
              accountDirectory.deleteAccount(selectedAccount);
              populateTable();
          }
      }
-     
      else{
          JOptionPane.showMessageDialog(null,"Please select an account from the list","Warning", JOptionPane.WARNING_MESSAGE);
      }
@@ -181,10 +180,8 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         int selectedRow = tblAccounts.getSelectedRow();
         
         if(selectedRow >= 0){
-            Account selectedAccount = (Account) tblAccounts.getValueAt(selectedRow,0);
-            
+            Account selectedAccount = (Account) tblAccounts.getValueAt(selectedRow,0);   
         }
-        
         else{
             JOptionPane.showMessageDialog(null,"Please select an account from the list to view", "Warning", JOptionPane.WARNING_MESSAGE);
         }
