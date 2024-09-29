@@ -5,7 +5,7 @@
 package ui.AccountManager;
 
 import java.awt.CardLayout;
-import model.*;
+//import model.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Account;
@@ -22,11 +22,11 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateAccountJPanel
      */
-    public CreateAccountJPanel(JPanel userProcessContainer, AccountDirectory accountDirectory) {
+    public CreateAccountJPanel(JPanel container, AccountDirectory directory) {
         initComponents();
         
-        this.userProcessContainer = userProcessContainer;
-        this.accountDirectory = accountDirectory;
+        this.userProcessContainer = container;
+        this.accountDirectory = directory;
     }
 
     /**
