@@ -43,6 +43,7 @@ public class ViewSupplier extends javax.swing.JPanel {
             row[2] = p.getPrice();
             model.addRow(row);
         }
+        
     }
 
     /**

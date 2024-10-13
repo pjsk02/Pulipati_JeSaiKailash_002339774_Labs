@@ -64,6 +64,11 @@ public class LoginScreen extends javax.swing.JPanel {
         add(lblChooseRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         cmbRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Supplier" }));
+        cmbRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRolesActionPerformed(evt);
+            }
+        });
         add(cmbRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
 
         cmbSuppliers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Best Buy" }));
@@ -106,6 +111,11 @@ public class LoginScreen extends javax.swing.JPanel {
         if(cmbSuppliers.getSelectedItem()==null) return;
         selectedSupplier = (Supplier) cmbSuppliers.getSelectedItem();
     }//GEN-LAST:event_cmbSuppliersActionPerformed
+
+    private void cmbRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolesActionPerformed
+        // TODO add your handling code here:
+        updateSupplierVisibility();
+    }//GEN-LAST:event_cmbRolesActionPerformed
 
 
     // for cbm supplier action perfomed
