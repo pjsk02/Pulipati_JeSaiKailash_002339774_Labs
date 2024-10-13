@@ -158,7 +158,9 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table first","Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Product.selectedProduct
+        Product selectedProduct = (Product) tblProducts.getValueAt(row, 0);
+        supplier.getProductCatalog().removeProduct(selectedProduct);
+        refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
 

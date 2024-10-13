@@ -21,7 +21,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AdminWorkAreaJPanel
      */
-    public AdminWorkAreaJPanel() {
+    public AdminWorkAreaJPanel(JPanel mainWorkArea, SupplierDirectory supplierDirectory) {
         initComponents();
         this.mainWorkArea = mainWorkArea;
         this.supplierDirectory = supplierDirectory;

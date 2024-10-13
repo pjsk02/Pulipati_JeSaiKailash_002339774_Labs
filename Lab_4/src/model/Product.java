@@ -16,6 +16,14 @@ public class Product {
     private int id;
 
     private ArrayList<Feature> features;
+
+    public ArrayList<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
+    }
     private static int count = 0;
     
     public Product() {
@@ -50,5 +58,10 @@ public class Product {
     @Override
     public String toString() {
         return name;
+    }
+    public Feature addNewFeature(){
+        Feature f = new Feature();
+        features.add(f);
+        return f;
     }
 }

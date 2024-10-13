@@ -72,7 +72,7 @@ public class LoginScreen extends javax.swing.JPanel {
                 cmbSuppliersActionPerformed(evt);
             }
         });
-        add(cmbSuppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
+        add(cmbSuppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 110, -1));
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +85,7 @@ public class LoginScreen extends javax.swing.JPanel {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        JPanel selectedPanel = (JPanel) cbmRoles.getSelectedItem();
+        JPanel selectedPanel = (JPanel) cmbRoles.getSelectedItem();//getSelectedItem();
         
         if(selectedPanel.getClass() == SupplierWorkAreaJPanel.class){
             if(selectedSupplier == null)
@@ -115,8 +115,8 @@ public class LoginScreen extends javax.swing.JPanel {
 //    **/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox<String> cmbRoles;
-    private javax.swing.JComboBox<String> cmbSuppliers;
+    private javax.swing.JComboBox<Object> cmbRoles;
+    private javax.swing.JComboBox<Object> cmbSuppliers;
     private javax.swing.JLabel lblChooseRole;
     private javax.swing.JLabel lblSupplier;
     private javax.swing.JLabel lblTitle;
@@ -125,11 +125,12 @@ public class LoginScreen extends javax.swing.JPanel {
     private void populateRoleCombo(){
         
         cmbRoles.removeAllItems();
-        AdminWorkAreaJPanel adminPanel = new AdminWorkAreaJPanel(mainWorkarea, supplierDirectory);
+        AdminWorkAreaJPanel adminPanel = new AdminWorkAreaJPanel(mainWorkArea, supplierDirectory);
         SupplierWorkAreaJPanel supplierPanel = new SupplierWorkAreaJPanel(mainWorkArea,selectedSupplier);
         
         cmbRoles.addItem(adminPanel);
-        cmbRoles.addItem(supplierPanel);
+        cmbRoles.addItem(supplierPanel); // shpuldnt it be suppliers
+        
     }
     
     public void populateSupplierCombo(){

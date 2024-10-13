@@ -33,9 +33,14 @@ public class Feature {
     {
         this.owner = owner;
     }
+    public Feature()
+    {
+//        this.owner = owner;
+    }
     
     public Feature(Product owner,String name, Object value)
     {
+        this.owner = owner;
         this.name = name;
         this.value = value;
     }
@@ -44,5 +49,6 @@ public class Feature {
     public String toString(){
         return name;
     }
+    
     
 }

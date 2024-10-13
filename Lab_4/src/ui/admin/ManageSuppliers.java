@@ -24,8 +24,8 @@ public class ManageSuppliers extends javax.swing.JPanel {
      */
     public ManageSuppliers(JPanel upc, SupplierDirectory sd) {
         initComponents();
-        userProcessContainer = upc;
-        supplierDirectory = sd;
+        this.userProcessContainer = upc;
+        this.supplierDirectory = sd;
         refreshTable();
     }
 
@@ -35,9 +35,9 @@ public class ManageSuppliers extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for(Supplier s : supplierDirectory.getSupplierList()) {
-            Object row[] = new Object[1];
+            Object row[] = new Object[2];
             row[0] = s;
-           // row[1] = s.getProductCatalog().getProductCount() == 0 ? "None" : s.getProductCatalog().getProductCount();
+            row[1] = s.getProductCatalog().getProductCount() == 0 ? "None" : s.getProductCatalog().getProductCount();
             model.addRow(row);
         }
     }
