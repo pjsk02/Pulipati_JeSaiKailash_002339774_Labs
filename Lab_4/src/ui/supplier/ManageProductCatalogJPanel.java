@@ -4,19 +4,48 @@
  */
 package ui.supplier;
 
+import model.Product;
+import model.Supplier;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author KAILASH
  */
 public class ManageProductCatalogJPanel extends javax.swing.JPanel {
 
+    JPanel workArea;
+    Supplier supplier;
+    
     /**
      * Creates new form ManageProductCatalogJPanel
      */
-    public ManageProductCatalogJPanel() {
+    public ManageProductCatalogJPanel(JPanel workArea, Supplier supplier) {
         initComponents();
+        this.workArea = workArea;
+        this.supplier = supplier;
+       if (supplier.getLogoImage() != null) imgLogo.setIcon(supplier.getLogoImage());
+
+        else imgLogo.setText("No Logo");
+        refreshTable();
     }
 
+    public void refreshTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+        model.setRowCount(0);
+
+        for (Product p : supplier.getProductCatalog().getProductCatalog()) {
+            Object row[] = new Object[3];
+            row[0] = p;
+            row[1] = p.getId();
+            row[2] = p.getPrice();
+            model.addRow(row);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +55,121 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        lblTitle = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProducts = new javax.swing.JTable();
+        btnView = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        imgLogo = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitle.setText("Manage Product Catalog");
+        add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 18, -1, -1));
+
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Product Name", "Product ID", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(tblProducts);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 52, 534, 289));
+
+        btnView.setText("View Details...");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
+        add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 359, -1, -1));
+
+        btnCreate.setText("Add Product...");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+        add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 359, -1, -1));
+
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 359, -1, -1));
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 359, -1, -1));
+
+        imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 110, 150, 150));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        int row = tblProducts.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null,"Please select a row from the table first","Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Product selectedProduct = (Product) tblProducts.getValueAt(row, 0);
+        ViewProductDetailJPanel vpdjp = new ViewProductDetailJPanel(workArea, selectedProduct);
+        workArea.add("ViewProductDetailJPanelSupplier",vpdjp);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        CreateNewProductJPanel cnpjp = new CreateNewProductJPanel(workArea, supplier);
+        workArea.add("SupplierWorkAreaJPanel", cnpjp);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+
+        SearchForProductJPanel sfpjp = new SearchForProductJPanel(workArea, supplier);
+        workArea.add("SearchForProductJPanel",sfpjp);
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.next(workArea);
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+
+        int row = tblProducts.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null,"Please select a row from the table first","Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Product.selectedProduct
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnView;
+    private javax.swing.JLabel imgLogo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tblProducts;
     // End of variables declaration//GEN-END:variables
 }
