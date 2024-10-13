@@ -4,17 +4,48 @@
  */
 package ui.admin;
 
+import model.Supplier;
+import model.SupplierDirectory;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author KAILASH
  */
 public class AddSupplier extends javax.swing.JPanel {
 
+    private JPanel workArea;
+    private SupplierDirectory supplierDirectory;
+    
+    private final JFileChooser fileChooser = new JFileChooser();
+    ImageIcon logoImage;
     /**
      * Creates new form AddSupplier
      */
-    public AddSupplier() {
+    public AddSupplier(JPanel workArea, SupplierDirectory supplierDirectory) {
         initComponents();
+        this.workArea = workArea;
+        this.supplierDirectory = supplierDirectory;
+        
+        FileFilter jpegFilter = new FileNameExtensionFilter("JPEG File","jpg","jpeg");
+        FileFilter pngFilter = new FileNameExtensionFilter("PNG File","png","png");
+        
+        fileChooser.addChoosableFileFilter(jpegFilter);
+        fileChooser.addChoosableFileFilter(pngFilter);
+        fileChooser.setFileFilter(pngFilter);
+
     }
 
     /**
@@ -26,19 +57,127 @@ public class AddSupplier extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblTitle = new javax.swing.JLabel();
+        btnAddSupplier = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        lblDescription = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        lblLogo = new javax.swing.JLabel();
+        imgLogo = new javax.swing.JLabel();
+        btnAttach = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblName.setText("Name:");
+        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 130, -1));
+
+        lblTitle.setText("New Supplier Information:");
+        add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+
+        btnAddSupplier.setText("Add");
+        btnAddSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSupplierActionPerformed(evt);
+            }
+        });
+        add(btnAddSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, -1, -1));
+
+        backButton.setText("<< Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        lblDescription.setText("Description:");
+        add(lblDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+
+        lblLogo.setText("Logo:");
+        add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+
+        imgLogo.setText("<No Image>");
+        imgLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        imgLogo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 110, 130));
+
+        btnAttach.setText("Attach");
+        btnAttach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttachActionPerformed(evt);
+            }
+        });
+        add(btnAttach, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+
+        btnRemove.setText("Remove");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
+        add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSupplierActionPerformed
+        // TODO add your handling code here:
+        Supplier supplier = supplierDirectory.addSupplier();
+        supplier.setSupplyName(txtName.getText());
+        supplier.setLogoImage(logoImage);
+
+        JOptionPane.showMessageDialog(this, "Supplier successfully added", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        backAction();
+    }//GEN-LAST:event_btnAddSupplierActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        backAction();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void btnAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachActionPerformed
+        // TODO add your handling code here:
+
+        
+    }//GEN-LAST:event_btnAttachActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton btnAddSupplier;
+    private javax.swing.JButton btnAttach;
+    private javax.swing.JButton btnRemove;
+    private javax.swing.JLabel imgLogo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

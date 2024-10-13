@@ -46,7 +46,7 @@ public class LoginScreen extends javax.swing.JPanel {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
-        lblSelectSupplier = new javax.swing.JLabel();
+        lblSupplier = new javax.swing.JLabel();
         lblChooseRole = new javax.swing.JLabel();
         cmbRoles = new javax.swing.JComboBox<>();
         cmbSuppliers = new javax.swing.JComboBox<>();
@@ -57,14 +57,16 @@ public class LoginScreen extends javax.swing.JPanel {
         lblTitle.setText("Lab 4 Demo");
         add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
-        lblSelectSupplier.setText("Select Supplier");
-        add(lblSelectSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        lblSupplier.setText("Select Supplier");
+        add(lblSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         lblChooseRole.setText("Choose Role");
         add(lblChooseRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
+        cmbRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Supplier" }));
         add(cmbRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
 
+        cmbSuppliers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Best Buy" }));
         cmbSuppliers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSuppliersActionPerformed(evt);
@@ -86,8 +88,17 @@ public class LoginScreen extends javax.swing.JPanel {
         JPanel selectedPanel = (JPanel) cbmRoles.getSelectedItem();
         
         if(selectedPanel.getClass() == SupplierWorkAreaJPanel.class){
-            
+            if(selectedSupplier == null)
+            {
+                JOptionPane.showMessageDialog(this, "Please select a supplier to login under supplier role", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else {
+                selectedPanel = new SupplierWorkAreaJPanel(mainWorkArea, selectedSupplier);            
+            }
         }
+        mainWorkArea.add("WorkAreaJPanel",selectedPanel);
+        CardLayout Layout = (CardLayout) mainWorkArea.getLayout();
+        Layout.next(mainWorkArea);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void cmbSuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSuppliersActionPerformed
@@ -107,7 +118,38 @@ public class LoginScreen extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbRoles;
     private javax.swing.JComboBox<String> cmbSuppliers;
     private javax.swing.JLabel lblChooseRole;
-    private javax.swing.JLabel lblSelectSupplier;
+    private javax.swing.JLabel lblSupplier;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populateRoleCombo(){
+        
+        cmbRoles.removeAllItems();
+        AdminWorkAreaJPanel adminPanel = new AdminWorkAreaJPanel(mainWorkarea, supplierDirectory);
+        SupplierWorkAreaJPanel supplierPanel = new SupplierWorkAreaJPanel(mainWorkArea,selectedSupplier);
+        
+        cmbRoles.addItem(adminPanel);
+        cmbRoles.addItem(supplierPanel);
+    }
+    
+    public void populateSupplierCombo(){
+        cmbSuppliers.removeAllItems();
+
+        for(Supplier supplier : supplierDirectory.getSupplierList()){
+            cmbSuppliers.addItem(supplier);
+        }
+    }
+    
+    private void updateSupplierVisibility(){
+        if((cmbRoles.getSelectedItem()==null) || (cmbRoles.getSelectedItem().getClass() == AdminWorkAreaJPanel.class)){
+            selectedSupplier = null;
+            lblSupplier.setVisible(false);
+            cmbSuppliers.setVisible(false);
+            return;
+        }
+        if(cmbRoles.getSelectedItem().getClass() == SupplierWorkAreaJPanel.class){
+            lblSupplier.setVisible(true);
+            cmbSuppliers.setVisible(true);
+        }
+    }
 }
