@@ -80,7 +80,7 @@ public class AddSupplier extends javax.swing.JPanel {
                 txtNameActionPerformed(evt);
             }
         });
-        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 130, -1));
+        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 210, -1));
 
         lblTitle.setText("New Supplier Information:");
         add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
@@ -116,7 +116,7 @@ public class AddSupplier extends javax.swing.JPanel {
         imgLogo.setText("<No Image>");
         imgLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         imgLogo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 110, 130));
+        add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 140, 140));
 
         btnAttach.setText("Attach");
         btnAttach.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class AddSupplier extends javax.swing.JPanel {
                 btnAttachActionPerformed(evt);
             }
         });
-        add(btnAttach, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        add(btnAttach, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
 
         btnRemove.setText("Remove");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class AddSupplier extends javax.swing.JPanel {
                 btnRemoveActionPerformed(evt);
             }
         });
-        add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, -1, -1));
+        add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSupplierActionPerformed
@@ -153,18 +153,45 @@ public class AddSupplier extends javax.swing.JPanel {
     private void btnAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachActionPerformed
         // TODO add your handling code here:
 
+        int returnVal = fileChooser.showOpenDialog(this);
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            URL url;
+            try{
+                url = file.toURI().toURL();
+                logoImage = new ImageIcon(url);
+                logoImage = new ImageIcon(logoImage.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH));
+                
+                imgLogo.setIcon(logoImage);
+            }
+            catch(MalformedURLException ex){
+                Logger.getLogger(this.getName()).log(Level.SEVERE,null,ex);
+            }
+        }
         
     }//GEN-LAST:event_btnAttachActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
 
+        logoImage = null;
+        imgLogo.setIcon(logoImage);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    private void backAction(){
+        workArea.remove(this);
+        Component[] componentArray = workArea.getComponents();
+        Component component = componentArray[componentArray.length-1];
+        ManageSuppliers manageSuppliersJPanel = (ManageSuppliers) component;
+        manageSuppliersJPanel.refreshTable();
+        CardLayout layout = (CardLayout) workArea.getLayout();
+        layout.previous(workArea);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
