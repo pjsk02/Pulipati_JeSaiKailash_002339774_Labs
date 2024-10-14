@@ -44,12 +44,6 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
         txtidField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        lblProductID = new javax.swing.JLabel();
-        lblProductName = new javax.swing.JLabel();
-        lblPrice = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
-        txtProductID = new javax.swing.JTextField();
-        txtProductName = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -75,18 +69,6 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
             }
         });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 37, -1, -1));
-
-        lblProductID.setText("Product ID");
-        add(lblProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 65, -1, -1));
-
-        lblProductName.setText("Product Name");
-        add(lblProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 114, -1, -1));
-
-        lblPrice.setText("Price");
-        add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 165, -1, -1));
-        add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 110, -1));
-        add(txtProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(601, 62, 110, -1));
-        add(txtProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -158,24 +140,18 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel lblPrice;
-    private javax.swing.JLabel lblProductID;
     private javax.swing.JLabel lblProductId;
-    private javax.swing.JLabel lblProductName;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JButton searchButton;
-    private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtProductID;
-    private javax.swing.JTextField txtProductName;
     private javax.swing.JTextField txtidField;
     // End of variables declaration//GEN-END:variables
 
-    private void setViewMode()
-    {
-        txtPrice.setEnabled(false);
-        txtProductID.setEnabled(false);
-        txtProductName.setEnabled(false);
-                
-    }
+//    private void setViewMode()
+//    {
+//        txtPrice.setEnabled(false);
+//        txtProductID.setEnabled(false);
+//        txtProductName.setEnabled(false);
+//                
+//    }
 }
 

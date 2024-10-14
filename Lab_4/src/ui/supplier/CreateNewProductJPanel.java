@@ -9,8 +9,18 @@ import model.Supplier;
 import ui.admin.ManageSuppliers;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author KAILASH
@@ -19,6 +29,8 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
 
     Supplier supplier;
     JPanel workArea;
+    private final JFileChooser fileChooser = new JFileChooser();
+    ImageIcon logoImage;
     /**
      * Creates new form CreateNewProductJPanel
      */
@@ -27,6 +39,13 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         
         this.supplier = supplier;
         this.workArea = workArea;
+        
+        FileFilter jpegFilter = new FileNameExtensionFilter("JPEG File","jpg","jpeg");
+        FileFilter pngFilter = new FileNameExtensionFilter("PNG File","png","png");
+        
+        fileChooser.addChoosableFileFilter(jpegFilter);
+        fileChooser.addChoosableFileFilter(pngFilter);
+        fileChooser.setFileFilter(pngFilter);
     }
 
     /**
@@ -47,6 +66,10 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblProductName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        lblLogo = new javax.swing.JLabel();
+        imgLogo = new javax.swing.JLabel();
+        btnAttach = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -84,6 +107,30 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         lblProductName.setText("Product Name:");
         add(lblProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 91, -1, 30));
         add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 95, 182, -1));
+
+        lblLogo.setText("Logo:");
+        add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, -1, -1));
+
+        imgLogo.setText("<No Image>");
+        imgLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        imgLogo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 140, 140));
+
+        btnAttach.setText("Attach");
+        btnAttach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttachActionPerformed(evt);
+            }
+        });
+        add(btnAttach, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, -1, -1));
+
+        btnRemove.setText("Remove");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
+        add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -91,6 +138,7 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         Product product = supplier.getProductCatalog().addProduct();
         product.setName(txtName.getText());
         String stringPrice = txtPrice.getText();
+        product.setLogoImage(logoImage);
         if (stringPrice.isEmpty() == false) {
             int price = Integer.parseInt(stringPrice);
             product.setPrice(price);
@@ -114,10 +162,43 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         backAction();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachActionPerformed
+        // TODO add your handling code here:
+
+        int returnVal = fileChooser.showOpenDialog(this);
+
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            URL url;
+            try{
+                url = file.toURI().toURL();
+                logoImage = new ImageIcon(url);
+                logoImage = new ImageIcon(logoImage.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH));
+
+                imgLogo.setIcon(logoImage);
+            }
+            catch(MalformedURLException ex){
+                Logger.getLogger(this.getName()).log(Level.SEVERE,null,ex);
+            }
+        }
+
+    }//GEN-LAST:event_btnAttachActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+
+        logoImage = null;
+        imgLogo.setIcon(logoImage);
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAttach;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemove;
+    private javax.swing.JLabel imgLogo;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblProductId;
     private javax.swing.JLabel lblProductName;

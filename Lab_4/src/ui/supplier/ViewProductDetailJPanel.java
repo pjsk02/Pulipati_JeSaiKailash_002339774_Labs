@@ -32,7 +32,9 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         txtName.setText(this.product.getName());
         txtId.setText(String.valueOf(this.product.getId()));
         txtPrice.setText(String.valueOf(this.product.getPrice()));
+ if (product.getLogoImage() != null) imgLogo.setIcon(product.getLogoImage());
 
+        else imgLogo.setText("No Logo");
         refreshTable();
     }
 
@@ -59,6 +61,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         tblFeatures = new javax.swing.JTable();
         btnAddFeature = new javax.swing.JButton();
         btnRemoveFeature = new javax.swing.JButton();
+        imgLogo = new javax.swing.JLabel();
 
         lblTitle.setText("View Product Details");
 
@@ -126,6 +129,10 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
             }
         });
 
+        imgLogo.setText("<No Image>");
+        imgLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        imgLogo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,7 +165,9 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                         .addComponent(lblPrice)
                         .addGap(18, 18, 18)
                         .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,14 +185,16 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPrice))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnUpdate)
                     .addComponent(btnAddFeature)
                     .addComponent(btnRemoveFeature))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,6 +298,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRemoveFeature;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel imgLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblName;
