@@ -44,4 +44,13 @@ public class ProductCatalog {
     public int getProductCount(){
         return productCatalog.size();
     }
+    
+//    public Product searchProduct(String idDet){
+//        for(Product i: productCatalog){
+//            if(i.getId().contains(idDet)){
+//                return i;
+//            }
+//        }
+//        return null;
+//    }
 }

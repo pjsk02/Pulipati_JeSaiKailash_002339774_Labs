@@ -5,7 +5,10 @@
 package ui.supplier;
 
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Product;
+import model.ProductCatalog;
 import model.Supplier;
 
 /**
@@ -16,6 +19,7 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
     JPanel workArea;
     Supplier supplier;
+    ProductCatalog productCatalog;
     /**
      * Creates new form SearchForProductJPanel
      */
@@ -37,13 +41,24 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
         lblTitle = new javax.swing.JLabel();
         lblProductId = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
+        txtidField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        lblProductID = new javax.swing.JLabel();
+        lblProductName = new javax.swing.JLabel();
+        lblPrice = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
+        txtProductID = new javax.swing.JTextField();
+        txtProductName = new javax.swing.JTextField();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitle.setText("Search for Product");
+        add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 40, -1, -1));
 
         lblProductId.setText("Product Id:");
+        add(lblProductId, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 124, -1, -1));
+        add(txtidField, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 146, 250, -1));
 
         searchButton.setText("Search Now >>");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +66,7 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
                 searchButtonActionPerformed(evt);
             }
         });
+        add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 146, -1, -1));
 
         jButton1.setText("<< Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -58,44 +74,76 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 37, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblProductId)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(37, 37, 37)
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(searchButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(lblTitle))
-                .addGap(61, 61, 61)
-                .addComponent(lblProductId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton))
-                .addContainerGap())
-        );
+        lblProductID.setText("Product ID");
+        add(lblProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 65, -1, -1));
+
+        lblProductName.setText("Product Name");
+        add(lblProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 114, -1, -1));
+
+        lblPrice.setText("Price");
+        add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 165, -1, -1));
+        add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 110, -1));
+        add(txtProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(601, 62, 110, -1));
+        add(txtProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
+        String id = txtidField.getText();
+        Integer.parseInt(id);
+        if(id.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Please enter some value");
+        }
+        for(Product product:supplier.getProductCatalog().getProductCatalog())
+        {
+            if(product.getId()==Integer.parseInt(id))
+            {
+                ViewProductDetailJPanel vpdjp = new ViewProductDetailJPanel(workArea, product);
+                workArea.add("ViewProductDetailJPanelSupplier",vpdjp);
+                CardLayout layout = (CardLayout) workArea.getLayout();
+                layout.next(workArea);   
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "No product found for the ID");
+        return;
+//        if(!txtidField.getText().isBlank())
+//        {
+//            String x = txtidField.getText();
+//            Integer.parseInt(x);
+////            Product foundProduct = productCatalog.searchProduct(x);
+//
+////                setViewMode();
+////                
+////                txtPrice.setText(String.valueOf(foundProduct.getPrice()));
+////                txtProductID.setText(String.valueOf(foundProduct.getId()));
+////                txtProductName.setText(foundProduct.getName());
+//                for(Product product:supplier.getProductCatalog().getProductCatalog())
+//                    {
+//                        if(product.getId()==Integer.parseInt(x))
+//                        {
+//                            ViewProductDetailJPanel vpdjp = new ViewProductDetailJPanel(workArea, product);
+//                            workArea.add("ViewProductDetailJPanelSupplier",vpdjp);
+//                            CardLayout layout = (CardLayout) workArea.getLayout();
+//                            layout.next(workArea);   
+//                            return;
+//                        }
+//                    }
+//
+////                txtPrice.setText(productCatalog);
+//                
+////                ViewSelectedPersonJPanel panel = new ViewSelectedPersonJPanel(userProcessContainer,personDirectory,foundPerson);
+////                userProcessContainer.add("ViewSelectedPersonJPanel",panel);
+////                
+////                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+////                layout.next(userProcessContainer);
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(null, "Product not found. Please check the Product ID and try again.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            }
         
         
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -109,10 +157,25 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField idField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblProductID;
     private javax.swing.JLabel lblProductId;
+    private javax.swing.JLabel lblProductName;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JButton searchButton;
+    private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtProductID;
+    private javax.swing.JTextField txtProductName;
+    private javax.swing.JTextField txtidField;
     // End of variables declaration//GEN-END:variables
+
+    private void setViewMode()
+    {
+        txtPrice.setEnabled(false);
+        txtProductID.setEnabled(false);
+        txtProductName.setEnabled(false);
+                
+    }
 }
+

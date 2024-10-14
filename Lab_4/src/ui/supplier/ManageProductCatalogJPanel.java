@@ -19,6 +19,7 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
 
     JPanel workArea;
     Supplier supplier;
+//    Product productCatalog;
     
     /**
      * Creates new form ManageProductCatalogJPanel
