@@ -12,18 +12,7 @@ import model.Product;
  */
 public class ViewProductDetailJPanel extends javax.swing.JPanel {
 
-    private JPanel userProcessContainer;
-    private Product product;
-    public ViewProductDetailJPanel(JPanel upc, Product product) {
-        initComponents();
-        this.userProcessContainer = upc;
-        this.product = product;
-        
-        txtName.setText(product.getProdName());
-        txtId.setText(String.valueOf(product.getModelNumber()));
-        txtPrice.setText(String.valueOf(product.getPrice()));
-        txtAvail.setText(String.valueOf(product.getAvail()));
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

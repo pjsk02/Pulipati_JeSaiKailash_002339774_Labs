@@ -16,31 +16,7 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageProductCatalogJPanel
      */
-    private JPanel userProcessContainer;
-    private Supplier supplier;
-
-    public ManageProductCatalogJPanel(JPanel upc, Supplier s) {
-        initComponents();
-        userProcessContainer = upc;
-        supplier = s;
-        lblSupplier.setText("Supplier : " + s.getSupplyName());
-        refreshTable();
-    }
-
-    public void refreshTable() {
-
-        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
-        model.setRowCount(0);
-
-        for (Product p : supplier.getProductCatalog().getProductcatalog()) {
-            Object row[] = new Object[4];
-            row[0] = p;
-            row[1] = p.getModelNumber();
-            row[2] = p.getPrice();
-            row[3] = p.getAvail();
-            model.addRow(row);
-        }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
