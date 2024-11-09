@@ -10,14 +10,7 @@ import javax.swing.JPanel;
  */
 public class AdminWorkAreaJPanel extends javax.swing.JPanel {
   
-    private JPanel userProcessContainer;
-    private SupplierDirectory supplierDirectory;
-    public AdminWorkAreaJPanel(JPanel userProcessContainer,SupplierDirectory supplierDirectory) {
-        
-        initComponents();
-        this.userProcessContainer=userProcessContainer;
-        this.supplierDirectory=supplierDirectory;
-    }
+    
     
     /** This method is called from within the constructor to
      * initialize the form.
