@@ -15,6 +15,14 @@ import javax.swing.JPanel;
 public class AddSupplierJPanel extends javax.swing.JPanel {
 
     
+    private JPanel userProcessContainer;
+    private SupplierDirectory supplierDirectory;
+    
+    public AddSupplierJPanel(JPanel upc, SupplierDirectory sd) {
+        initComponents();
+        userProcessContainer = upc;
+        supplierDirectory = sd;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
