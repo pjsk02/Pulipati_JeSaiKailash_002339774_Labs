@@ -12,8 +12,32 @@ import javax.swing.table.DefaultTableModel;
  * @author Mihir Mehta / Hechen Gao
  */
 public class ViewSupplierJPanel extends javax.swing.JPanel {
-
     
+    private JPanel userProcessContainer;
+    private Supplier supplier;
+    
+    public ViewSupplierJPanel(JPanel upc, Supplier s) {
+        initComponents();
+        userProcessContainer = upc;
+        supplier = s;
+        lblSupplierName.setText(s.getSupplyName());
+        refreshTable();
+    }
+
+    public void refreshTable(){
+        int rowCount = productCatalog.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) productCatalog.getModel();
+        for(int i=rowCount - 1;i>=0;i--){
+            model.removeRow(i);
+        }
+        for(Product p: supplier.getProductCatalog().getProductcatalog()){
+            Object row[] = new Object[3];
+            row[0] = p;
+            row[1] = p.getModelNumber();
+            row[2] = p.getPrice();
+            model.addRow(row);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
