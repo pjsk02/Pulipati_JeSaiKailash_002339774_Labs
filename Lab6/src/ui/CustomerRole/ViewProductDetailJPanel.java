@@ -84,6 +84,11 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         jLabel6.setText("Availability:");
 
         txtAvail.setEditable(false);
+        txtAvail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAvailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -150,6 +155,10 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
     private void txtProdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProdNameActionPerformed
+
+    private void txtAvailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAvailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAvailActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

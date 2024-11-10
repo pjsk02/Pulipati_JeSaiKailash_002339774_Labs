@@ -3,6 +3,7 @@ package ui.SupplierRole;
 import java.awt.CardLayout;
 import ui.AdminRole.ManageSuppliersJPanel;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Product;
 
@@ -154,6 +155,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         txtName.setEditable(true);
         txtPrice.setEditable(true);
         btnSave.setEnabled(true);
+        txtAvail.setEditable(true);
 }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -171,8 +173,10 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        product.setPrice(Integer.parseInt(txtPrice.getText()));
+        product.setPrice(Double.parseDouble(txtPrice.getText()));
         product.setProdName(txtName.getText());
+        product.setAvail(Integer.parseInt(txtAvail.getText()));
+        JOptionPane.showMessageDialog(null, "Saved successfully!!", "Saved", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtAvailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAvailActionPerformed
