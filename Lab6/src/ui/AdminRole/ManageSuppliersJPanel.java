@@ -101,7 +101,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("STXinwei", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Manage Suppliers");
 
@@ -142,7 +142,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
                     .addComponent(btnView)
                     .addComponent(btnAddSupplier)
                     .addComponent(btnRemove))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

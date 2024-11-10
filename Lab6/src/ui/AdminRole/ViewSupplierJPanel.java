@@ -48,7 +48,7 @@ public class ViewSupplierJPanel extends javax.swing.JPanel {
         productCatalog = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
 
-        lblSupplierName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblSupplierName.setFont(new java.awt.Font("STXinwei", 1, 18)); // NOI18N
         lblSupplierName.setText("<Supplier Name>");
 
         productCatalog.setModel(new javax.swing.table.DefaultTableModel(
@@ -102,7 +102,7 @@ public class ViewSupplierJPanel extends javax.swing.JPanel {
                     .addComponent(lblSupplierName))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(336, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

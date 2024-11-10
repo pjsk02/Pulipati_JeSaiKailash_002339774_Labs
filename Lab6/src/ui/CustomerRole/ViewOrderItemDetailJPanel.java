@@ -58,7 +58,7 @@ public class ViewOrderItemDetailJPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(240, 240, 240));
         setPreferredSize(new java.awt.Dimension(650, 600));
 
-        lblTitle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("STXinwei", 1, 18)); // NOI18N
         lblTitle.setText("Order Item Details");
 
         btnBack.setText("<< Back");
@@ -146,7 +146,7 @@ public class ViewOrderItemDetailJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTotal))
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtProductId, txtProductName, txtQuantity, txtSalesPrice, txtTotal});

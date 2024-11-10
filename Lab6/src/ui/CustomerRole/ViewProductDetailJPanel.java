@@ -54,7 +54,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(650, 600));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("STXinwei", 1, 18)); // NOI18N
         jLabel1.setText("Product Details");
 
         jLabel2.setText("Product Name:");

@@ -45,7 +45,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(650, 600));
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("STXinwei", 1, 18)); // NOI18N
         lblTitle.setText("View Product Details");
 
         lblProductName.setText("Product Name:");
@@ -145,7 +145,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                 .addComponent(btnUpdate)
                 .addGap(18, 18, 18)
                 .addComponent(btnSave)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
