@@ -139,6 +139,12 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
 
         lblSalesPrice.setText("Sales Price:");
 
+        txtSalesPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalesPriceActionPerformed(evt);
+            }
+        });
+
         lblQuantity.setText("Quantity:");
 
         spnQuantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
@@ -474,6 +480,10 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
         populateProductTable();
         populateCartTable();
     }//GEN-LAST:event_btnAddToCartActionPerformed
+
+    private void txtSalesPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalesPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalesPriceActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
