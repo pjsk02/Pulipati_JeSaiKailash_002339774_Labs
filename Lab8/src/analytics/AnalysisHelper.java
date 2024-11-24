@@ -26,8 +26,27 @@ public class AnalysisHelper {
             likeNumber += c.getLikes();
         }
         
-        System.out.println("Average number of likes per comments: " + likeNumber / commentNumber);
+        System.out.println("(1) Average number of likes per comments: " + likeNumber / commentNumber);
             
+    }
+    
+        public void getMaxLikeCommentPost () {
+        DataStore data = DataStore.getInstance();
+        Comment commentWithMaxLikes = null;
+
+        for (Comment c: data.getComments().values()) {
+            if (commentWithMaxLikes == null) {
+                commentWithMaxLikes = c;
+            }
+            if (c.getLikes() > commentWithMaxLikes.getLikes()) {
+                commentWithMaxLikes = c;
+            }
+        }
+
+        int postId = commentWithMaxLikes.getPostId();
+
+        System.out.println("(2). The Post with most likes per comment " + data.getPosts().get(postId).getPostId());
+        
     }
     
 }
